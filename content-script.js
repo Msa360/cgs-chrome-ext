@@ -12,34 +12,64 @@ function injection() {
 injection();
 
 function get_credentials() {
+    //"userId": document.getElementById("userId").value,
     var creds = {
-        //"userId": document.getElementById("userId").value,
         "userId": "12493",
-        "start_date": document.getElementById("formattedBeginDate").value,
-        "start_hour": document.getElementById("BeginPeriod").value,
-        "end_date": document.getElementById("formattedEndDate").value,
-        "end_hour": document.getElementById("EndPeriod").value,
-        "scheduleId": 64, // the sport id
+        "beginDate": document.getElementById("formattedBeginDate").value,
+        "beginPeriod": document.getElementById("BeginPeriod").value,
+        "endDate": document.getElementById("formattedEndDate").value,
+        "endPeriod": document.getElementById("EndPeriod").value,
+        "scheduleId": "64", // the sport id
         "resourceId": (parseInt(document.getElementById("reservationDetails").getElementsByClassName("pull-left")[0].innerHTML[34])+4745).toString(), // 4745+i pour le slot
+        "reservationTitle": "",
+        "reservationDescription": "",
         "reservationId": document.getElementsByName("reservationId")[0].value,
         "referenceNumber": document.getElementById("referenceNumber").value,
         "reservationAction": document.getElementsByName("reservationAction")[0].value,
         "seriesUpdateScope": document.getElementById("hdnSeriesUpdateScope").value,
-        "csrf_token": document.getElementById("csrf_token").value,
-        "cookie": document.cookie
+        "CSRF_TOKEN": document.getElementById("csrf_token").value
     };
-    return creds;
+    var form = new FormData();
+    form.append("userId", creds["userId"]);
+    form.append("beginDate", creds["beginDate"]);
+    form.append("beginPeriod", creds["beginPeriod"]);
+    form.append("endDate", creds["endDate"]);
+    form.append("endPeriod", creds["endPeriod"]);
+    form.append("scheduleId", creds["scheduleId"]);
+    form.append("resourceId", creds["resourceId"]);
+    form.append("reservationTitle", creds["reservationTitle"]);
+    form.append("reservationDescription", creds["reservationDescription"]);
+    form.append("reservationId", creds["reservationId"]);
+    form.append("referenceNumber", creds["referenceNumber"]);
+    form.append("reservationAction", creds["reservationAction"]);
+    form.append("seriesUpdateScope", creds["seriesUpdateScope"]);
+    form.append("CSRF_TOKEN", creds["CSRF_TOKEN"]);
+
+    return form;
 }
 const creds = get_credentials();
 chrome.runtime.sendMessage({greeting: creds}, function(response) {
     console.log(response.farewell);
     console.log(response.resp);
 });
-// "https://www.youtube.com/watch?v=tc8DU14qX6I"
-// "https://scop.cegep-ste-foy.qc.ca/booked/Web/ajax/reservation_update.php"
-//https://scop.cegep-ste-foy.qc.ca/booked/Web/reservation.php?rn=6363d84aaa3eb195022897
 
 
+// console.log(creds)
+// fetch("https://scop.cegep-ste-foy.qc.ca/booked/Web/ajax/reservation_update.php", {
+//     method: "POST",
+//     body: creds,
+//     credentials: 'include'
+// }).then((response) => response.text()).then((result) => console.log(result));
 
+
+// to prove it works !! (tested and it do work!)
+// fetch("https://scop.cegep-ste-foy.qc.ca/booked/Web/dashboard.php", {
+//     method: "GET",
+//     // headers: {
+//     //   "hworld": "wasssup"
+//     // },
+//     //body: JSON.stringify(creds),
+//     credentials: 'include'
+// }).then((response) => response.text()).then((result) => console.log(result));
 
 
