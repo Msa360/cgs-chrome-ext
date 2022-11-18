@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "CSFOY GYM STEALER",
+    "version": "0.0.1",
+    "action": {
+      "default_title": "CGS",   
+      "default_popup": "popup.html"  
+    },
+    
+    "description": "Override gym reservations at CSFOY.",
+
+    "background": {
+        "service_worker": "background.js"
+    },
+
+    "content_scripts": [
+        {
+            "matches": ["https://scop.cegep-ste-foy.qc.ca/booked/Web/reservation.php?rn=*"],
+            "js": ["content-script.js"],
+            "run_at": "document_end"
+        }
+    ],
+
+    "host_permissions": ["<all_urls>"],
+    
+    "permissions": [
+        "cookies"
+    ]
+}

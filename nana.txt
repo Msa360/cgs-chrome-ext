@@ -1,0 +1,20 @@
+"background": {
+        "service_worker": "background.js"
+},
+
+
+"content_scripts": [
+        {
+            "matches": ["https://scop.cegep-ste-foy.qc.ca/booked/Web/reservation.php?rn=*"],
+            "js": ["content-script.js"],
+            "run_at": "document_end"
+        }
+    ],
+
+
+
+ // inject the axios library
+    // const axios_lib = document.createElement('script');
+    // axios_lib.setAttribute('src', 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
+    // axios_lib.setAttribute('async', ''); // lib axios can be async
+    // document.body.appendChild(axios_lib);
