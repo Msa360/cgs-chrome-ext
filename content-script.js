@@ -1,20 +1,27 @@
 console.log("I am here");
 
 function injection() {
-    // inject snag button
+    // injects the green snag button
     const btn_ref = document.getElementsByClassName("pull-right")[1]
     const snag_btn = document.createElement('BUTTON');
     snag_btn.setAttribute("class", "btn btn-success ");
     snag_btn.setAttribute("type", "button");
     snag_btn.innerHTML = "snag";
     btn_ref.insertBefore(snag_btn, btn_ref.children[1]);
+
+    snag_btn.addEventListener("click", () => {
+        var answer = confirm("Are you sure you want this reservation? This will affect someone else's.");
+        if (answer){
+            update_reservation();
+        }
+    });
 }
 injection();
 
-function get_credentials() {
+function get_credentials(uid) {
     //"userId": document.getElementById("userId").value,
     var creds = {
-        "userId": "12493",
+        "userId": uid,
         "beginDate": document.getElementById("formattedBeginDate").value,
         "beginPeriod": document.getElementById("BeginPeriod").value,
         "endDate": document.getElementById("formattedEndDate").value,
@@ -47,29 +54,44 @@ function get_credentials() {
 
     return form;
 }
-const creds = get_credentials();
+
+const creds = get_credentials(uid="12493");
+
 chrome.runtime.sendMessage({greeting: creds}, function(response) {
     console.log(response.farewell);
     console.log(response.resp);
 });
 
 
-// console.log(creds)
-// fetch("https://scop.cegep-ste-foy.qc.ca/booked/Web/ajax/reservation_update.php", {
-//     method: "POST",
-//     body: creds,
-//     credentials: 'include'
-// }).then((response) => response.text()).then((result) => console.log(result));
+function update_reservation() {
+    fetch("https://scop.cegep-ste-foy.qc.ca/booked/Web/ajax/reservation_update.php", {
+        method: "POST",
+        body: creds,
+        credentials: 'include'
+    }).then((response) => 
+        response.text()
+    ).then((result) => {
+    console.log(result);
+    const parser = new DOMParser();
+    const r = parser.parseFromString(result, 'text/xml');
+    try {
+        var node = r.getElementById("created-message");
+        var server_msg = node.textContent || node.innerText;
+        console.log(node);
+        console.log(server_msg);
+    } catch (error) {
+        var node = r.getElementById("failed-message");
+        var msg = node.textContent || node.innerText;
+        var node2 = r.getElementsByClassName("error")[1];
+        var msg2 = node2.textContent || node2.innerText;
+        var server_msg = msg.trim() + "! " + msg2.trim(); 
+    }
+    alert(server_msg);
+    });
+}
 
 
-// to prove it works !! (tested and it do work!)
-// fetch("https://scop.cegep-ste-foy.qc.ca/booked/Web/dashboard.php", {
-//     method: "GET",
-//     // headers: {
-//     //   "hworld": "wasssup"
-//     // },
-//     //body: JSON.stringify(creds),
-//     credentials: 'include'
-// }).then((response) => response.text()).then((result) => console.log(result));
+
+
 
 

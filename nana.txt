@@ -18,3 +18,14 @@
     // axios_lib.setAttribute('src', 'https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js');
     // axios_lib.setAttribute('async', ''); // lib axios can be async
     // document.body.appendChild(axios_lib);
+
+
+// to prove it works !! (tested and it do work!)
+// fetch("https://scop.cegep-ste-foy.qc.ca/booked/Web/dashboard.php", {
+//     method: "GET",
+//     // headers: {
+//     //   "hworld": "wasssup"
+//     // },
+//     //body: JSON.stringify(creds),
+//     credentials: 'include'
+// }).then((response) => response.text()).then((result) => console.log(result));
