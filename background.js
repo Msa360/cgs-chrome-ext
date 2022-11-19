@@ -1,5 +1,5 @@
 
-
+// needs "cookies" permission
 // function getcookies() {
 //   cookieArray = [];
 //   chrome.cookies.getAll({domain: "scop.cegep-ste-foy.qc.ca", path: "/booked/Web"}, (cookies) => {

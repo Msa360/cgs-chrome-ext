@@ -12,7 +12,7 @@ function injection(creds) {
 
     snag_btn.addEventListener("click", () => {
         var answer = confirm("Are you sure you want this reservation? This will affect someone else's.");
-        if (answer){
+        if (answer) {
             update_reservation(creds);
         }
     });
@@ -51,7 +51,7 @@ function get_credentials(uid) {
         "endDate": document.getElementById("formattedEndDate").value,
         "endPeriod": document.getElementById("EndPeriod").value,
         "scheduleId": "64", // the sport id
-        "resourceId": get_resourceId(),
+        "resourceId": get_resourceId(), // todo: add functionnality to snag own reservation (id:primaryResourceId)
         "reservationTitle": "",
         "reservationDescription": "",
         "reservationId": document.getElementsByName("reservationId")[0].value,
@@ -83,7 +83,6 @@ function get_credentials(uid) {
 function start() {
     var uid = "";
     chrome.storage.sync.get(['userID'], function(result) {
-        console.log('Value currently is ' + result.userID);
         uid = result.userID;
         const creds = get_credentials(uid)
         injection(creds)
