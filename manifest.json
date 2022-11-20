@@ -27,6 +27,8 @@
             "run_at": "document_end"
         }
     ],
+
+    "host_permissions": ["https://scop.cegep-ste-foy.qc.ca/*"],
     
     "permissions": [
         "storage"
