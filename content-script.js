@@ -92,7 +92,8 @@ function start() {
 
 
 function update_reservation(creds) {
-    fetch("https://scop.cegep-ste-foy.qc.ca/booked/Web/ajax/reservation_update.php", {
+    // "https://scop.cegep-ste-foy.qc.ca/booked/Web/ajax/reservation_update.php" is no longer working
+    fetch("https://scop-sas.csfoy.ca/booked_sas/Web/ajax/reservation_update.php", {
         method: "POST",
         body: creds,
         credentials: 'include'

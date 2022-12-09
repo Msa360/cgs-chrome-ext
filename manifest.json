@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "CSFOY GYM STEALER",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "action": {
       "default_title": "CGS",   
       "default_popup": "popup.html"  
@@ -22,13 +22,13 @@
 
     "content_scripts": [
         {
-            "matches": ["https://scop.cegep-ste-foy.qc.ca/booked/Web/reservation.php?rn=*"],
+            "matches": ["https://scop-sas.csfoy.ca/booked_sas/Web/reservation.php?rn=*"],
             "js": ["content-script.js"],
             "run_at": "document_end"
         }
     ],
 
-    "host_permissions": ["https://scop.cegep-ste-foy.qc.ca/*"],
+    "host_permissions": ["https://scop-sas.csfoy.ca/*"],
     
     "permissions": [
         "storage"
