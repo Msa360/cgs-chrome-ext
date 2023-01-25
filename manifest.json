@@ -27,7 +27,7 @@
     "web_accessible_resources": [
         {
             "resources": ["inject-script.js"],
-            "matches": ["https://scop-sas.csfoy.ca/booked_sas/Web/reservation/?rn=*"]
+            "matches": ["<all_urls>"]
         }
     ],
 
