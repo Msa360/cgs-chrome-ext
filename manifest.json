@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "CSFOY GYM STEALER",
-    "version": "1.1.0",
+    "version": "2.0.0",
     "action": {
       "default_title": "CGS",   
       "default_popup": "popup.html"  
@@ -14,23 +14,24 @@
         "32": "icons/icon32.png",
         "48": "icons/icon48.png",
         "128": "icons/icon128.png"
-      },
-
-    "background": {
-        "service_worker": "background.js"
     },
 
     "content_scripts": [
         {
-            "matches": ["https://scop-sas.csfoy.ca/booked_sas/Web/reservation.php?rn=*"],
+            "matches": ["https://scop-sas.csfoy.ca/booked_sas/Web/reservation/?rn=*"],
             "js": ["content-script.js"],
-            "run_at": "document_end"
+            "run_at": "document_start"
+        }
+    ],
+
+    "web_accessible_resources": [
+        {
+            "resources": ["inject-script.js"],
+            "matches": ["<all_urls>"]
         }
     ],
 
     "host_permissions": ["https://scop-sas.csfoy.ca/*"],
     
-    "permissions": [
-        "storage"
-    ]
+    "permissions": []
 }
