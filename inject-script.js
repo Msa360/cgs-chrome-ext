@@ -4,6 +4,7 @@ window.addEventListener("load", main, false);
 
 function main() {
     // this function asserts that every react component is loaded
+    
     var jsInitChecktimer = setInterval(checkForJS_Finish, 111);
 
     function checkForJS_Finish() {
@@ -20,20 +21,7 @@ function main() {
 }
 
 function injection() {
-    // injects the green redeem button
-    // const main_div = document.getElementById('react-root');
-    // const redeem_btn = document.createElement('BUTTON');
-    // redeem_btn.setAttribute("class", "btn btn-success ");
-    // redeem_btn.setAttribute("type", "button");
-    // redeem_btn.setAttribute("style", "margin-left: 10px;");
-    // redeem_btn.innerHTML = "redeem";
-    // const text = document.createElement("span");
-    // text.setAttribute("class", "alert alert-success ");
-    // text.setAttribute("style", "margin: 10px;");
-    // text.setAttribute("id", "redeemText");
-    // text.innerHTML = " but with CGS you can redeem it ";
-    // text.appendChild(redeem_btn)
-    // main_div.after(text);
+
     const main_div = document.getElementById('react-root');
     const alert_div = main_div.getElementsByClassName('alert alert-danger')[0];
     const redeem_btn = document.createElement('BUTTON');
@@ -132,7 +120,6 @@ function update_reservation(reservation_data) {
         response.text()
     ).then((raw_result) => {
         const result = JSON.parse(raw_result);
-        console.log(result);
         if (result.success === true) {
             if (result.data.success === true) {
                 alert("The reservation was successfully updated!");
