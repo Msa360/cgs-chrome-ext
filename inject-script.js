@@ -51,9 +51,19 @@ function injection() {
 */
 
 function date_convert(date, time) {
+    // used for reservation requests body
     // params: date is (yyyy-mm-dd), time is (HH:MM)
     date = new Date(`${date}T${time}:00-05:00`);
     return date.toISOString();
+}
+
+function zero_pad_before(data, length) {
+    // length is the desired total length of data so zero_pad("12", 4) -> "0012"
+    if (data.length >= length) {
+        return data;
+    } else {
+        return "0".repeat(length - data.length) + data;
+    }
 }
 
 function get_refnum() {
@@ -76,10 +86,18 @@ function get_resourceId(callback) {
 }
 
 function get_res_info(refnum, resource_array, callback) {
-    var form = new FormData();
+    
+    var current_date = new Date();
+    var current_date_string = String(current_date.getFullYear()) +"-"+ zero_pad_before(String(current_date.getMonth()+1), 2) +"-"+ zero_pad_before(String(current_date.getDate()), 2);
+    
+    var end_date = new Date(current_date);
+    end_date.setDate(end_date.getDate() + 7);
+    var end_date_string = String(end_date.getFullYear()) +"-"+ zero_pad_before(String(end_date.getMonth()+1), 2) +"-"+ zero_pad_before(String(end_date.getDate()), 2);
 
-    form.append("beginDate", "2023-01-24");
-    form.append("endDate", "2023-01-30");
+
+    var form = new FormData();
+    form.append("beginDate", current_date_string);
+    form.append("endDate", end_date_string);
     form.append("scheduleId", "64");
     form.append("MIN_CAPACITY", "");
     form.append("RESOURCE_TYPE_ID", "");
