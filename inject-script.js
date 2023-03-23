@@ -53,7 +53,7 @@ function injection() {
 function date_convert(date, time) {
     // used for reservation requests body
     // params: date is (yyyy-mm-dd), time is (HH:MM)
-    date = new Date(`${date}T${time}:00-05:00`);
+    date = new Date(`${date}T${time}:00-04:00`);
     return date.toISOString();
 }
 
@@ -105,6 +105,7 @@ function get_res_info(refnum, resource_array, callback) {
         form.append("resourceId[]", resource_array[i]);
     }
     form.append("userId", "");
+
 
     // fetch reservations and find the matching one to see its data
     fetch("https://scop-sas.csfoy.ca/booked_sas/Web/schedule.php?dr=reservations", {
