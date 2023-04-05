@@ -53,7 +53,10 @@ function injection() {
 function date_convert(date, time) {
     // used for reservation requests body
     // params: date is (yyyy-mm-dd), time is (HH:MM)
-    date = new Date(`${date}T${time}:00-04:00`);
+    var offset = new Date().getTimezoneOffset() / 60;
+    if (offset > 0) {var sign = "-";} else {var sign = "+"}
+    offset = zero_pad_before(offset.toString(), 2)
+    date = new Date(`${date}T${time}:00${sign}${offset}:00`);
     return date.toISOString();
 }
 
