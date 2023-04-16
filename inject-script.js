@@ -118,11 +118,16 @@ function get_res_info(refnum, resource_array, callback) {
     }).then((response) => 
         response.json()
     ).then((result) => {
+        let found = false;
         result.forEach(element => {
             if (element.ReferenceNumber === refnum) {
+                found = true;
                 callback(element);
             }
         });
+        if (found === false) {
+            alert("Unable to find data, reservation may be expired, or more than 7 days in the future.");
+        }
     });
 }
 
